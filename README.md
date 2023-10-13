@@ -2,9 +2,9 @@
 A simple tool to quickly check account balances (including token balances) on various evm-compatible networks. 
 
 ### This is demonstration of EVM bulk balance checker
-![Inferface Demo](resources/demo.gif?raw=true "Interface Demo")
+<img src="resources/demo.gif" width="745" height="222" alt="Interface Demo">
 output:
-![Output CSV](resources/output.png?raw=true "Output CSV")
+<img src="resources/output.png" width="963" height="247" alt="Output CSV">
 
 ### Setup
 1. Use `pip install -r requirements.txt` to install all required modules.
