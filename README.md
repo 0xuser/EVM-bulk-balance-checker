@@ -1,5 +1,5 @@
 ## EVM bulk balance checker
-A simple tool to quickly check account balances (including token balances) on various evm-compatible networks. 
+A simple tool to quickly check account balances (including ERC20 token balances and transaction count) on various evm-compatible networks like Ethereum, Arbitrum, Optimism, BSC, Polygon, Fantom, Zksync Era, Base, Scroll, Mantle Network, Kroma, Avalanche and others 
 
 ### This is demonstration of EVM bulk balance checker
 <img src="resources/demo.gif" width="70%" height="70%" alt="Interface Demo">
