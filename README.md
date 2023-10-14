@@ -12,7 +12,7 @@ output:
 
 ### Usage
 1. Define networks RPCs and tokens in the `config.py` file. 
-2. Paste addresses you want to check into `accounts.txt` file, each address should be on a new line.
+2. Paste addresses you want to check into `accounts.txt` file, each address should be on a new line. You can also use a blank line to separate account packages.
 3. Run `main.py` and select desired network.
 
 
