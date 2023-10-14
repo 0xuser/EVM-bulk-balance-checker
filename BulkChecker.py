@@ -62,7 +62,7 @@ class BulkChecker(object):
 
     def get_header(self):
         tokens = NETWORKS[self.network_name]['tokens']
-        header = ''
+        header = 'account,'
         for ticker in tokens:
             if ticker == 'ETH':
                 header += 'ETH,ETH(USD),'
