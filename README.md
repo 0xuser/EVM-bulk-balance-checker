@@ -26,7 +26,6 @@ On the example of BASE network in order to check the balances of Eth and USDC.
             "ETH": None,
             "USDC": '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913'
         }
-    }
    ```
 2. That's all! you can run the program.
 
