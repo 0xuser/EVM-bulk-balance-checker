@@ -2,7 +2,9 @@ import datetime
 import json
 import random
 import time
+import os
 
+from eth_typing import ChecksumAddress
 from eth_utils import to_checksum_address
 from web3 import Web3
 
@@ -30,7 +32,7 @@ class BulkChecker(object):
 
         for account_address in accounts:
             if account_address != '\n':
-                account_address = to_checksum_address(account_address.rstrip())
+                account_address: ChecksumAddress = to_checksum_address(account_address.rstrip())
                 print(f'fetching balances for {account_address}..')
                 csv_content += account_address + ',' + self.get_account_balances(account_address=account_address)
                 time.sleep(random.randint(SETTINGS['sleep_time']['min'], SETTINGS['sleep_time']['max']))
@@ -38,19 +40,26 @@ class BulkChecker(object):
                 csv_content += '\n'
         self.save_output(content=csv_content)
 
-    def check_ether_balance(self, account_address: str):
-        wei_amount = self.web3.eth.get_balance(to_checksum_address(account_address))
+    def check_ether_balance(self, account_address: ChecksumAddress):
+        wei_amount = self.web3.eth.get_balance(account_address)
         return self.web3.from_wei(wei_amount, 'ether')
 
-    def get_account_balances(self, account_address: str):
+    def check_transaction_count(self, account_address: ChecksumAddress):
+        return self.web3.eth.get_transaction_count(account=account_address)
+
+    def get_account_balances(self, account_address: ChecksumAddress):
         tokens = NETWORKS[self.network_name]['tokens']
         account_balances = ''
         for ticker, token_address in tokens.items():
-            if ticker == 'ETH':
+            # handle special fields first
+            if ticker == 'TX COUNT':
+                account_balances += str(self.check_transaction_count(account_address=account_address)) + ','
+            elif ticker == 'ETH':
                 ether_balance = self.check_ether_balance(account_address=account_address)
                 ether_balance_usd = round(self.ether_price * ether_balance, SETTINGS['usd_round'])
                 ether_balance = round(ether_balance, SETTINGS['round'])
                 account_balances += str(ether_balance) + ',' + str(ether_balance_usd) + ','
+            # handle tokens
             else:
                 token_contract = self.web3.eth.contract(address=to_checksum_address(token_address), abi=self.erc20_abi)
                 token_balance = token_contract.functions.balanceOf(account_address).call()
@@ -64,17 +73,20 @@ class BulkChecker(object):
         tokens = NETWORKS[self.network_name]['tokens']
         header = 'account,'
         for ticker in tokens:
-            if ticker == 'ETH':
+            if ticker == 'TX COUNT':
+                header += 'TX COUNT,'
+            elif ticker == 'ETH':
                 header += 'ETH,ETH(USD),'
             else:
                 header += ticker + ','
         return header[:-1] + '\n'
 
     def save_output(self, content):
+        if not os.path.exists('outputs'):
+            os.makedirs('outputs')
         actual_datetime = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        output_filename = f'{self.network_name}_{actual_datetime}_balances.csv'
+        output_filename = f'outputs/{self.network_name}_{actual_datetime}_balances.csv'
         f = open(output_filename, "w")
         f.write(content)
         f.close()
         print(f'Output saved to {output_filename}')
-

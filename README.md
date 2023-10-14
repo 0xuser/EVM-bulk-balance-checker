@@ -29,5 +29,11 @@ On the example of BASE network in order to check the balances of Eth and USDC.
    ```
 2. That's all! you can run the program.
 
+#### Token definition, special fields
+- `"ETH": None` - for ETH & ETH(USD) balances,
+- `"TX COUNT": None` - for OUT transaction count,
+- every other field requires the ticker and address of the erc20 token contract in the following format:
+```"LINK": "0x514910771AF9Ca656af840dff83E8264EcF986CA"```.
+
 
 I recommend using private RPCs.

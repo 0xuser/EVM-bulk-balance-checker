@@ -11,6 +11,7 @@ NETWORKS = {
     "Ethereum": {
         "rpc": "https://eth.llamarpc.com",
         "tokens": {
+                "TX COUNT": None,
                 "ETH": None,
                 "USDC": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
                 "USDT": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
@@ -39,8 +40,11 @@ NETWORKS = {
     "Zksync Era": {
         "rpc": "https://mainnet.era.zksync.io",
         "tokens": {
+                "TX COUNT": None,
                 "ETH": None,
                 "USDC": '0x3355df6D4c9C3035724Fd0e3914dE96A5a83aaf4',
+                "USDT": "0x493257fD37EDB34451f62EDf8D2a0C418852bA4C",
+                "BUSD": "0x2039bb4116B4EFc145Ec4f0e2eA75012D6C0f181",
                 "nETH": '0x1BbD33384869b30A323e15868Ce46013C82B86FB',
                 "rfETH": '0xC5db68F30D21cBe0C9Eac7BE5eA83468d69297e6'
         }
